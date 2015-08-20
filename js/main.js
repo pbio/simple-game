@@ -1,14 +1,15 @@
 //person prototype
-function person(parent, name, x,y, color) {
+function person(parent, name, color) {
     this.name = name;
-    this.pos =new vector(x,y);
-    
+    this.pos =new vector(Math.random()*1000,Math.random()*500);
+    this.down=false;
     parent.appendChild(this.create());
     this.color=color;
     if (!this.color) this.color="blue";
     
     document.getElementById(this.name).appendChild(this.clothes());
     document.getElementById(this.name).appendChild(this.hair());
+    this.dragNDrop();
 }
 //create person method
 person.prototype.create = function () {
@@ -25,13 +26,44 @@ person.prototype.hair = function () {
 	return createDiv("hair");
 };
 
+//drag and drop functionality
+person.prototype.dragNDrop= function(){
+	var down=false;
+	var name=this.name;
+	function mouseMove(event) {
+    	if (!down)
+    	    removeEventListener("mousemove", mouseMove);
+    	else {
+    		//alert(this.name);
+   			document.getElementById(name).style.left = event.pageX+"px";
+   			document.getElementById(name).style.top = event.pageY+"px";
+    	}
+	}
+	function drag(event){
+		//alert(that.down);
+		down=true;
+		addEventListener("mousemove", mouseMove);
+	}
+	function drop() {
+		down=false;
+	}
+	document.getElementById(this.name).addEventListener("mousedown", drag);
+	addEventListener("mouseup", drop);
+};
+
+
+
+
+
+
+
 //function to help create a div
 function createDiv(className, pos, idName) {
 	var elt= document.createElement("div");
 	elt.className= className;
 	if (idName) elt.id=idName;
 	if (pos) {
-		elt.style.bottom = pos.y+"px";
+		elt.style.top = pos.y+"px";
 		elt.style.left= pos.x+"px";
 		}
 	
@@ -91,7 +123,7 @@ level.prototype.createCloud= function(){
 		var dir;
 		if (Math.random()>.5) dir="right";
 		else dir="left";
-		var pos=new vector(Math.random()*800, Math.random()*300+300, dir);
+		var pos=new vector(Math.random()*1000, Math.random()*400, dir);
 		var temp=createDiv("cloud", pos);
 		temp.title=pos.dir; 
 		this.parent.appendChild(temp);
@@ -142,10 +174,10 @@ level.prototype.userControl = function(){
 			if (!focusElement) return;
 		
 			if (event.keyCode==38){
-				focusElement.style.bottom=(parseInt(focusElement.style.bottom)+20)+"px";
+				focusElement.style.top=(parseInt(focusElement.style.top)-20)+"px";
 			}
 			else if (event.keyCode==40){
-				focusElement.style.bottom=(parseInt(focusElement.style.bottom)-20)+"px";
+				focusElement.style.top=(parseInt(focusElement.style.top)+20)+"px";
 			}
 			else if (event.keyCode==39){
 				focusElement.style.left=(parseInt(focusElement.style.left)+20)+"px";
@@ -163,6 +195,7 @@ level.prototype.userControl = function(){
 		if (i==2) allHumans[i].addEventListener("click", function(){selectHuman(2);});
 	}
 	arrows();
+	
 };
 
 
