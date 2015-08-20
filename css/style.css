@@ -1,0 +1,83 @@
+body {
+    background-color: lightblue;
+}
+.ground {
+    position : absolute;
+    bottom: 0px;
+    background-color: black;
+    width: 100%;
+    height: 50px;
+}
+.sun {
+	position: absolute;
+	top: 50px;
+	right: 200px;
+	background: yellow;
+	width: 100px;
+	height: 100px;
+	border-radius: 50px;
+	z-index: -2;
+}
+
+.cloud {
+	position: absolute;
+	opacity: .5;
+	background: grey;
+	width: 200px;
+	height: 200px;
+	border-radius: 100px;
+	z-index: -2;
+}
+
+.human {
+    z-index:0;
+    border: 0px;
+    padding: 0px;
+    position: absolute;
+    bottom: 50px;
+    left: 200px;
+    background-color: orange;
+    width: 15px;
+    height: 50px;
+}
+.shirt {
+    position: absolute;
+    width: 100%;
+    height: 20px;
+    top: 20px;
+    background-color: blue;
+}
+.hair {
+    position: absolute;
+    width: 100%;
+    height: 5px;
+    background-color: brown;
+}
+.REye {
+    position: absolute;
+    top: 15%;
+    left:10%;
+    width: 2px;
+    height: 2px;
+    background-color: black;
+}
+.LEye {
+    position: absolute;
+    top: 15%;
+    left:85%;
+    width: 2px;
+    height: 2px;
+    background-color: black;
+}
+
+.selected {
+	position: relative;
+	top: 10px;
+	left: 10px;
+	width: 170px;
+	height: 50px;
+	background: green;
+	color: white;
+	font-family: 'Courier';
+	text-align: center;
+}
